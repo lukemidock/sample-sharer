@@ -18,8 +18,10 @@
 
     <title>Welcome to Sample Sharer</title>
   </head>
-  <body>
-    <h1>Hello</h1>
+  <body class="p-3 mb-2 bg-dark text-white">
+    <h1 class="text-center font-weight-bold " style="color:#20EAE4;">
+      Welcome to Sample Sharer
+    </h1>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -38,5 +40,54 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">One of three columns</div>
+        <div class="col-sm">One of three columns</div>
+        <div class="col-sm">One of three columns</div>
+        <form class="p-3 mb-2 bg-info text-white">
+          <div><h3>Search for Samples:</h3></div>
+          <br />
+          <div class="form-group">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="category"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Category
+              </button>
+              <div class="dropdown-menu" aria-labelledby="category">
+                <a class="dropdown-item" href="#">Accordion</a>
+                <a class="dropdown-item" href="#">Arpeggio</a>
+                <a class="dropdown-item" href="#">Bagpipe</a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="genre"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Genre
+              </button>
+              <div class="dropdown-menu" aria-labelledby="genre">
+                <a class="dropdown-item" href="#">Acoustic</a>
+                <a class="dropdown-item" href="#">Ambient</a>
+                <a class="dropdown-item" href="#">Big Room</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
