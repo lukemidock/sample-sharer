@@ -1,0 +1,18 @@
+{
+  "name": "lmm496_HW3",
+  "version": "1.0.0",
+  "description": "Luke Midock's Calculation Site",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
