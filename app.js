@@ -24,20 +24,29 @@ con.connect(function(err) {
 
 app.get("/samples", function(req, res) {
   res.send(req.query);
-// sqlquery = "SELECT * FROM samples WHERE "
-//con.query(sqlquery, function(err,rows,fields) {
-//  if (err) {
-//    console.log('Error during query processing');  
-//  } else {
-//    console.log('Query successful');
-//    res.send(rows);
-//  }
-//});
+   sqlquery = "SELECT * FROM samples WHERE "
+  con.query(sqlquery, function(err,rows,fields) {
+    if (err) {
+      console.log('Error during query processing');  
+    } else {
+      console.log('Query successful');
+      res.send(rows);
+    }
+  });
   res.end();
+});
+
+app.get("/sample_upload", function(req, res) {
+// Recieve sample with name, genre, category, key, and tempo
+// Send sample to sql server
 });
 
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "/views/home.html"));
+});
+
+app.get("/upload", function(req, res) {
+  res.sendFile(path.join(__dirname + "/views/upload.html"));
 });
 
 app.listen(port, function() {
