@@ -4,6 +4,8 @@ var mysql = require("mysql");
 var request = require('request');
 var fs = require("fs");
 var bodyparser = require('body-parser');
+var uuidv4 = require('uuid/v4')
+
 
 //initialize express app
 var app = express();
@@ -36,7 +38,7 @@ pool = mysql.createPool({
   //   pool.query("INSERT INTO example(data) VALUES(BINARY(:buf))", { buf }, ...);
   // }
   // ```
-  queryFormat: function(query, values) {
+  /*queryFormat: function(query, values) {
     if (!values) return query;
     return query.replace(/\:(\w+)/g, function(txt, key) {
       if (values.hasOwnProperty(key)) {
@@ -44,7 +46,7 @@ pool = mysql.createPool({
       }
       return txt;
     }.bind(this));
-  }
+  }*/
 
 });
 
@@ -53,39 +55,28 @@ pool = mysql.createPool({
 
 
 app.get("/samples", function(req, res) {
-  res.send(req.query);
-  sqlquery = "SELECT * FROM samples WHERE ";
-  pool.query(sqlquery, function(err, rows, fields) {
-    if (err) {
-      console.log("Error during query processing");
-    } else {
-      console.log("Query successful");
-      res.send(rows);
-    }
+  pool.query("select * from samples", function(err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
   });
-  res.end();
+    
 });
 
 
-app.post("/uploadsample", function(req, res) {
+app.post("/uploadsample", async function(req, res) {
     
 	var query = req.body;
-	
-    data = readpFile(query.name);
-    name = query.name;
-    genre = query.genre;
-    category = query.category;
-    key = query.key;
-    tempo =  query.tempo;
+	query.id = uuidv4();
+    query.data = readpFile("mp3samples\\"+ query.data);
+    console.log(query);
     
     
-    pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
-    //pool.query("INSERT INTO `samples` VALUES (1," + data + "," + name + "," + genre + "," + category + "," + key + "," + tempo + ")", function(err, res) {
+    
+    //pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
+    pool.query('INSERT INTO samples SET ?', query, function (err, res) {
   if (err) throw err;
         console.log("BLOB data inserted!");
-    
     });
-    
 });
 
 app.get("/upload_sample", function(req, res) {});
@@ -107,6 +98,7 @@ app.listen(port, function() {
 function readpFile(file) {
   // read binary data from a file:
   const bitmap = fs.readFileSync(file);
+    console.log(bitmap);
   const buf = new Buffer(bitmap);
   return buf;
 }

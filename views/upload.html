@@ -18,11 +18,12 @@
         var sampleTempo = $("#tempo").val();
           
         var file_json = {
-          "file": sampleFile,
+          "id": 0,
+          "data": sampleFile,
           "name": sampleName,
           "genre": sampleGenre,
           "category": sampleCategory,
-          "key": sampleKey,
+          "musickey": sampleKey,
           "tempo": sampleTempo
         };
         console.log(file_json);
@@ -31,6 +32,7 @@
           type: "POST",
           url: url,
           data: file_json,
+          async: true,
           success: function(msg) {
             alert("Successfully Uploaded Sample");
             redirectHome();
