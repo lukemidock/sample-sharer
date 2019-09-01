@@ -8,12 +8,42 @@ var port = 8080;
 app.use(express.static("."));
 
 //initialize mysql connection
-var con = mysql.createConnection({
-  host: 'localhost',
-  user: 'user',
-  password: 'password',
-  data: 'samples'
+
+
+pool = mysql.createPool({
+  "connectionLimit": 10,
+  "host": "localhost",
+  "port": 3306,
+  "user": "root",
+  "password": "Pass275word",
+  "database": "simplesharer",
+  "timezone": 'utc',
+  // Enables query format like this: 
+  // `connection.query("UPDATE x SET col=:v1" , { v1: 999 }, ...`
+  //
+  // NOTE: How to insert binary data:
+  // ```
+  // // Read BLOB:
+  // pool.query(`SELECT * FROM example`, function(err, res) {
+  //   const buf = new Buffer(res[0].data); // `data` column type is BLOB! 
+  //   // Write BLOB:
+  //   pool.query("INSERT INTO example(data) VALUES(BINARY(:buf))", { buf }, ...);
+  // }
+  // ```
+  queryFormat: function(query, values) {
+    if (!values) return query;
+    return query.replace(/\:(\w+)/g, function(txt, key) {
+      if (values.hasOwnProperty(key)) {
+        return this.escape(values[key]);
+      }
+      return txt;
+    }.bind(this));
+  }
 });
+
+
+
+
 con.connect(function(err) {
   if (err) {
     console.log("Error connecting to database");
@@ -24,7 +54,7 @@ con.connect(function(err) {
 
 app.get("/samples", function(req, res) {
   res.send(req.query);
-   sqlquery = "SELECT * FROM samples WHERE "
+   sqlquery = "SELECT * FROM samples "
   con.query(sqlquery, function(err,rows,fields) {
     if (err) {
       console.log('Error during query processing');  
@@ -36,9 +66,20 @@ app.get("/samples", function(req, res) {
   res.end();
 });
 
-app.get("/sample_upload", function(req, res) {
-// Recieve sample with name, genre, category, key, and tempo
-// Send sample to sql server
+app.post("/sample_upload", function(req, res) {
+    const data = readImageFile(req.query.file);
+    name = req.query.name
+    genre = req.query.genre
+    category = req.query.category
+    key = req.query.key
+    tempo = = req.query.tempo
+    
+    pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
+  if (err) throw err;
+  console.log("BLOB data inserted!");
+    
+    
+    
 });
 
 app.get("/", function(req, res) {
@@ -52,3 +93,11 @@ app.get("/upload", function(req, res) {
 app.listen(port, function() {
   console.log("Server running on port", port);
 });
+
+
+function readFile(file) {
+  // read binary data from a file:
+  const bitmap = fs.readFileSync(file);
+  const buf = new Buffer(bitmap);
+  return buf;
+}
