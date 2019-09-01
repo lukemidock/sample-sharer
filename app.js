@@ -9,10 +9,10 @@ app.use(express.static("."));
 
 //initialize mysql connection
 var con = mysql.createConnection({
-  host: 'localhost',
-  user: 'user',
-  password: 'password',
-  data: 'samples'
+  host: "localhost",
+  user: "user",
+  password: "password",
+  data: "samples"
 });
 con.connect(function(err) {
   if (err) {
@@ -24,12 +24,12 @@ con.connect(function(err) {
 
 app.get("/samples", function(req, res) {
   res.send(req.query);
-   sqlquery = "SELECT * FROM samples WHERE "
-  con.query(sqlquery, function(err,rows,fields) {
+  sqlquery = "SELECT * FROM samples WHERE ";
+  con.query(sqlquery, function(err, rows, fields) {
     if (err) {
-      console.log('Error during query processing');  
+      console.log("Error during query processing");
     } else {
-      console.log('Query successful');
+      console.log("Query successful");
       res.send(rows);
     }
   });
@@ -37,8 +37,7 @@ app.get("/samples", function(req, res) {
 });
 
 app.get("/sample_upload", function(req, res) {
-// Recieve sample with name, genre, category, key, and tempo
-// Send sample to sql server
+  res.sendFile(path.join(__dirname + "/views/upload.html"));
 });
 
 app.get("/", function(req, res) {
