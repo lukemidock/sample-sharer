@@ -8,7 +8,7 @@ var port = 8080;
 app.use(express.static("."));
 
 //initialize mysql connection
-<<<<<<< HEAD
+
 
 
 pool = mysql.createPool({
@@ -40,30 +40,17 @@ pool = mysql.createPool({
       return txt;
     }.bind(this));
   }
-=======
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "user",
-  password: "password",
-  data: "samples"
->>>>>>> d484e5c328d78e9674c8b85db102a0ad11d694c5
+
 });
 
 
 
 
-con.connect(function(err) {
-  if (err) {
-    console.log("Error connecting to database");
-  } else {
-    console.log("Database successfully connected");
-  }
-});
 
 app.get("/samples", function(req, res) {
   res.send(req.query);
   sqlquery = "SELECT * FROM samples WHERE ";
-  con.query(sqlquery, function(err, rows, fields) {
+  pool.query(sqlquery, function(err, rows, fields) {
     if (err) {
       console.log("Error during query processing");
     } else {
@@ -74,25 +61,25 @@ app.get("/samples", function(req, res) {
   res.end();
 });
 
-<<<<<<< HEAD
+
 app.post("/sample_upload", function(req, res) {
     const data = readImageFile(req.query.file);
-    name = req.query.name
-    genre = req.query.genre
-    category = req.query.category
-    key = req.query.key
-    tempo = = req.query.tempo
+    name = req.query.name;
+    genre = req.query.genre;
+    category = req.query.category;
+    key = req.query.key;
+    tempo =  req.query.tempo;
     
     pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
   if (err) throw err;
   console.log("BLOB data inserted!");
     
-    
+    });
     
 });
-=======
+
 app.get("/upload_sample", function(req, res) {});
->>>>>>> d484e5c328d78e9674c8b85db102a0ad11d694c5
+
 
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "/views/home.html"));
@@ -113,3 +100,4 @@ function readFile(file) {
   const buf = new Buffer(bitmap);
   return buf;
 }
+
