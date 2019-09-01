@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Upload Samples</title>
+    <button onclick="redirectHome()">Back To Home</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <link
       rel="stylesheet"
@@ -24,38 +25,43 @@
           key: sampleKey,
           tempo: sampleTempo
         };
-        var URL = "http://localhost:8080/upload_sample";
+        console.log(file_json);
+        var url = "http://localhost:8080/upload_sample";
         $.ajax({
-          type: "GET",
-          url: URL,
+          type: "POST",
+          url: url,
           dataType: "json",
           contentType: "application/json, charset=utf-8",
           data: file_json,
           success: function(msg) {
-            alert(msg);
+            alert("Successfully Uploaded Sample");
           }
         });
+      }
+
+      function redirectHome() {
+        $(location).attr("href", "http://localhost:8080/");
       }
     </script>
   </head>
   <body>
     <div>
-      File: <input type="file" id="sampleFile" /><br />
-      Sample Name: <input type="text" id="sampleName" /><br />
-      Genre:
+      File: <input type="file" id="sampleFile" /> Sample Name:
+      <input type="text" id="sampleName" />
       <select id="genre">
+        <option value="">Genre</option>
         <option value="acoustic">Acoustic</option>
         <option value="ambient">Ambient</option>
-        <option value="big room">Big Room</option> </select
-      ><br />
-      Category:
+        <option value="big room">Big Room</option>
+      </select>
       <select id="category">
+        <option value="">Category</option>
         <option value="accordion">Accordion</option>
         <option value="arpeggio">Arpeggio</option>
-        <option value="bagpipe">Bagpipe</option> </select
-      ><br />
-      Key:
+        <option value="bagpipe">Bagpipe</option>
+      </select>
       <select id="key">
+        <option id="">Key</option>
         <option value="a">A</option>
         <option value="am">Am</option>
         <option value="a#">A#</option>
@@ -79,11 +85,11 @@
         <option value="g">G</option>
         <option value="gm">Gm</option>
         <option value="g#">G#</option>
-        <option value="g#m">G#m</option> </select
-      ><br />
+        <option value="g#m">G#m</option>
+      </select>
       Tempo (BPM):
-      <input type="number" id="tempo" placeholder="BPM (eg. 120)" /><br />
-      <input type="button" onclick="send_file()" value="Submit" /><br />
+      <input type="number" id="tempo" placeholder="BPM (eg. 120)" />
+      <button onclick="send_file()">Upload Sample</button>
     </div>
   </body>
 </html>
