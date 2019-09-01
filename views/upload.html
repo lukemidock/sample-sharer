@@ -1,49 +1,89 @@
 <html>
-    <head>
-        <title> Upload Samples </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-        <script type="text/javascript">
-            function send_file() {
-                var sampleFile = $("#sampleFile").val();
-                var sampleName = $("#sampleName").val();
-                var sampleGenre = $("#genre").val();
-                var sampleCategory = $("#category").val();
-                var sampleKey = $("#key").val();
-                var sampleTempo = $("#tempo").val();
+  <head>
+    <title>Upload Samples</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script type="text/javascript">
+      function send_file() {
+        var sampleFile = $("#sampleFile").val();
+        var sampleName = $("#sampleName").val();
+        var sampleGenre = $("#genre").val();
+        var sampleCategory = $("#category").val();
+        var sampleKey = $("#key").val();
+        var sampleTempo = $("#tempo").val();
 
-                var file_json = {
-                    file: sampleFile,
-                    name: sampleName,
-                    genre: sampleGenre,
-                    category: sampleCategory,
-                    key: sampleKey,
-                    tempo: sampleTempo
-                };
-                var URL = "http://localhost:8080/upload_sample";
-                $.ajax({
-                    type: "GET",
-                    url: URL,
-                    dataType: "json",
-                    contentType: "application/json, charset=utf-8",
-                    data: file_json,
-                    success: function(msg) {
-                        alert(msg);
-                    }
-                });
-            }
-        </script>
-    </head>
-    <body>
-        <div>
-            File: <input type="file" id="sampleFile"><br/>
-            Sample Name: <input type="text" id="sampleName"><br/>
-            Genre: <input type="text" id="genre"><br/>
-            Category: <input type="text" id="category"><br/>
-            Key: <input type="text" id="key"><br/>
-            Tempo: <input type="number" id="tempo"><br/>
-            <input type="button" onclick="send_file()"value="Submit"><br/>
-        </div>
-    </body>
+        var file_json = {
+          file: sampleFile,
+          name: sampleName,
+          genre: sampleGenre,
+          category: sampleCategory,
+          key: sampleKey,
+          tempo: sampleTempo
+        };
+        var URL = "http://localhost:8080/upload_sample";
+        $.ajax({
+          type: "GET",
+          url: URL,
+          dataType: "json",
+          contentType: "application/json, charset=utf-8",
+          data: file_json,
+          success: function(msg) {
+            alert(msg);
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      File: <input type="file" id="sampleFile" /><br />
+      Sample Name: <input type="text" id="sampleName" /><br />
+      Genre:
+      <select id="genre">
+        <option value="acoustic">Acoustic</option>
+        <option value="ambient">Ambient</option>
+        <option value="big room">Big Room</option> </select
+      ><br />
+      Category:
+      <select id="category">
+        <option value="accordion">Accordion</option>
+        <option value="arpeggio">Arpeggio</option>
+        <option value="bagpipe">Bagpipe</option> </select
+      ><br />
+      Key:
+      <select id="key">
+        <option value="a">A</option>
+        <option value="am">Am</option>
+        <option value="a#">A#</option>
+        <option value="a#m">A#m</option>
+        <option value="b">B</option>
+        <option value="bm">Bm</option>
+        <option value="c">C</option>
+        <option value="cm">Cm</option>
+        <option value="c#">C#</option>
+        <option value="c#m">C#m</option>
+        <option value="d">D</option>
+        <option value="dm">Dm</option>
+        <option value="d#">D#</option>
+        <option value="d#m">D#m</option>
+        <option value="e">E</option>
+        <option value="em">Em</option>
+        <option value="f">F</option>
+        <option value="fm">Fm</option>
+        <option value="f#">F#</option>
+        <option value="f#m">F#m</option>
+        <option value="g">G</option>
+        <option value="gm">Gm</option>
+        <option value="g#">G#</option>
+        <option value="g#m">G#m</option> </select
+      ><br />
+      Tempo (BPM):
+      <input type="number" id="tempo" placeholder="BPM (eg. 120)" /><br />
+      <input type="button" onclick="send_file()" value="Submit" /><br />
+    </div>
+  </body>
 </html>

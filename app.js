@@ -8,6 +8,7 @@ var port = 8080;
 app.use(express.static("."));
 
 //initialize mysql connection
+<<<<<<< HEAD
 
 
 pool = mysql.createPool({
@@ -39,6 +40,13 @@ pool = mysql.createPool({
       return txt;
     }.bind(this));
   }
+=======
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "user",
+  password: "password",
+  data: "samples"
+>>>>>>> d484e5c328d78e9674c8b85db102a0ad11d694c5
 });
 
 
@@ -54,18 +62,19 @@ con.connect(function(err) {
 
 app.get("/samples", function(req, res) {
   res.send(req.query);
-   sqlquery = "SELECT * FROM samples "
-  con.query(sqlquery, function(err,rows,fields) {
+  sqlquery = "SELECT * FROM samples WHERE ";
+  con.query(sqlquery, function(err, rows, fields) {
     if (err) {
-      console.log('Error during query processing');  
+      console.log("Error during query processing");
     } else {
-      console.log('Query successful');
+      console.log("Query successful");
       res.send(rows);
     }
   });
   res.end();
 });
 
+<<<<<<< HEAD
 app.post("/sample_upload", function(req, res) {
     const data = readImageFile(req.query.file);
     name = req.query.name
@@ -81,6 +90,9 @@ app.post("/sample_upload", function(req, res) {
     
     
 });
+=======
+app.get("/upload_sample", function(req, res) {});
+>>>>>>> d484e5c328d78e9674c8b85db102a0ad11d694c5
 
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "/views/home.html"));
