@@ -36,9 +36,7 @@ app.get("/samples", function(req, res) {
   res.end();
 });
 
-app.get("/sample_upload", function(req, res) {
-  res.sendFile(path.join(__dirname + "/views/upload.html"));
-});
+app.get("/upload_sample", function(req, res) {});
 
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "/views/home.html"));

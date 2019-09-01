@@ -15,6 +15,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <script type="text/javascript">
+      function redirectToUpload() {
+        $(location).attr("href", "http://localhost:8080/upload");
+      }
+    </script>
 
     <title>Welcome to Sample Sharer</title>
   </head>
@@ -44,7 +49,11 @@
       <div class="row">
         <div class="col-sm">One of three columns</div>
         <div class="col-sm">One of three columns</div>
-        <div class="col-sm">One of three columns</div>
+        <div class="col-sm">
+          <button class="btn btn-secondary" onclick="redirectToUpload()">
+            Upload Your Own Sample
+          </button>
+        </div>
         <form class="p-3 mb-2 bg-info text-white">
           <div><h3>Search for Samples:</h3></div>
           <br />
