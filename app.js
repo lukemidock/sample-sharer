@@ -1,9 +1,14 @@
 var express = require("express");
 var path = require("path");
 var mysql = require("mysql");
+var request = require('request');
+var fs = require("fs");
+var bodyparser = require('body-parser');
 
 //initialize express app
 var app = express();
+app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.json())
 var port = 8080;
 app.use(express.static("."));
 
@@ -62,17 +67,22 @@ app.get("/samples", function(req, res) {
 });
 
 
-app.post("/sample_upload", function(req, res) {
-    const data = readImageFile(req.query.file);
-    name = req.query.name;
-    genre = req.query.genre;
-    category = req.query.category;
-    key = req.query.key;
-    tempo =  req.query.tempo;
+app.post("/uploadsample", function(req, res) {
+    
+	var query = req.body;
+	
+    data = readpFile(query.name);
+    name = query.name;
+    genre = query.genre;
+    category = query.category;
+    key = query.key;
+    tempo =  query.tempo;
+    
     
     pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
+    //pool.query("INSERT INTO `samples` VALUES (1," + data + "," + name + "," + genre + "," + category + "," + key + "," + tempo + ")", function(err, res) {
   if (err) throw err;
-  console.log("BLOB data inserted!");
+        console.log("BLOB data inserted!");
     
     });
     
@@ -94,7 +104,7 @@ app.listen(port, function() {
 });
 
 
-function readFile(file) {
+function readpFile(file) {
   // read binary data from a file:
   const bitmap = fs.readFileSync(file);
   const buf = new Buffer(bitmap);

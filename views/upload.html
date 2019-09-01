@@ -10,28 +10,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
     <script type="text/javascript">
       function send_file() {
-        var sampleFile = $("#sampleFile").val();
+        var sampleFile = document.getElementById("sampleFile").files[0].name
         var sampleName = $("#sampleName").val();
         var sampleGenre = $("#genre").val();
         var sampleCategory = $("#category").val();
         var sampleKey = $("#key").val();
         var sampleTempo = $("#tempo").val();
-
+          
         var file_json = {
-          file: sampleFile,
-          name: sampleName,
-          genre: sampleGenre,
-          category: sampleCategory,
-          key: sampleKey,
-          tempo: sampleTempo
+          "file": sampleFile,
+          "name": sampleName,
+          "genre": sampleGenre,
+          "category": sampleCategory,
+          "key": sampleKey,
+          "tempo": sampleTempo
         };
         console.log(file_json);
-        var url = "http://localhost:8080/upload_sample";
+        var url = "http://localhost:8080/uploadsample";
         $.ajax({
           type: "POST",
           url: url,
-          dataType: "json",
-          contentType: "application/json, charset=utf-8",
           data: file_json,
           success: function(msg) {
             alert("Successfully Uploaded Sample");
