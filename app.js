@@ -51,9 +51,9 @@ pool = mysql.createPool({
 
 
 app.post("/uploadsample", function(req, res) {
-    
+
 	var query = req.body.uploaddata;
-	
+
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       var oldpath = query.path;
@@ -88,14 +88,14 @@ app.post("/fileupload", function(req, res) {
     console.log("Inserted")
     
  });
-    
-    
+
+
 });
 
 app.get("/samples", function(req, res) {
+  var bigString = ``
   pool.query("select * from samples", function(err, rows, fields) {
     if (err) throw err;
-    var bigString = ``;
     for (var i = 0; i < rows.length; i++) {
       bigString += `<div><audio controls src=${rows[i].path}>Your browser does not support the
             <code>audio</code> element.</audio></div><div><table><thead><tr><th>Name</th><th>Category</th><th>Genre</th><th>Key</th>
@@ -119,6 +119,3 @@ app.get("/upload", function(req, res) {
 app.listen(port, function() {
   console.log("Server running on port", port);
 });
-
-
-
