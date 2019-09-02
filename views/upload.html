@@ -9,6 +9,10 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
     <script type="text/javascript">
+      $("#submit").on("click", function(e){
+         e.stopPropagation();
+      })
+
       function send_file() {
         var sampleFile = document.getElementById("sampleFile");
         var sampleName = $("#sampleName").val();
@@ -16,7 +20,7 @@
         var sampleCategory = $("#category").val();
         var sampleKey = $("#key").val();
         var sampleTempo = $("#tempo").val();
-          
+
         var file_json = {
           "path": sampleFile,
           "name": sampleName,
@@ -40,7 +44,7 @@
       }
 
       function redirectHome() {
-        $(location).attr("href", "http://localhost:8080/");
+        $(location).attr("href", "http://localhost:8080");
       }
     </script>
   </head>
@@ -49,19 +53,68 @@
       File: <input type="file" id="sampleFile" /> Sample Name:
       <input type="text" id="sampleName" />
       <select id="genre">
-        <option value="">Genre</option>
+        <option value="*">Genre</option>
         <option value="acoustic">Acoustic</option>
         <option value="ambient">Ambient</option>
         <option value="big room">Big Room</option>
+        <option value="blues">Blues</option>
+        <option value="boom bap">Boom Bap</option>
+        <option value="chill out">Chill Out</option>
+        <option value="cinematic">Cinematic</option>
+        <option value="country">Country</option>
+        <option value="dance">Dance</option>
+        <option value="deep house">Deep House</option>
+        <option value="disco">Disco</option>
+        <option value="drum and bass">Drum and Bass</option>
+        <option value="Dubstep">Dubstep</option>
+        <option value="edm">EDM</option>
+        <option value="electro">Electro</option>
+        <option value="electric">Electric</option>
+        <option value="grime">Grime</option>
+        <option value="heavy metal">Heavy Metal</option>
+        <option value="hip hop">Hip Hop</option>
+        <option value="house">House</option>
+        <option value="jazz">Jazz</option>
+        <option value="lofi">Lo-Fi</option>
+        <option value="orchestral">Orchestral</option>
+        <option value="pop">Pop</option>
+        <option value="rap">Rap</option>
+        <option value="reggae">Reggae</option>
+        <option value="rnb">RnB</option>
+        <option value="rock">Rock</option>
       </select>
       <select id="category">
-        <option value="">Category</option>
+        <option value="*">Category</option>
         <option value="accordion">Accordion</option>
         <option value="arpeggio">Arpeggio</option>
         <option value="bagpipe">Bagpipe</option>
+        <option value="banjo">Banjo</option>
+        <option value="bass">Bass</option>
+        <option value="bass guitar">Bass Guitar</option>
+        <option value="beatbox">Beatbox</option>
+        <option value="bells">Bells</option>
+        <option value="brass">Brass</option>
+        <option value="choir">Choir</option>
+        <option value="clarinet">Clarinet</option>
+        <option value="drum">Drum</option>
+        <option value="flute">Flute</option>
+        <option value="fx">FX</option>
+        <option value="guitar accoustic">Guitar Accoustic</option>
+        <option value="guitar electric">Guitar Electric</option>
+        <option value="harmonica">Harmonica</option>
+        <option value="harp">Harp</option>
+        <option value="orchestral">Orchestral</option>
+        <option value="organ">Organ</option>
+        <option value="pad">Pad</option>
+        <option value="percussion">Percussion</option>
+        <option value="piano">Piano</option>
+        <option value="strings">Strings</option>
+        <option value="synth">Synth</option>
+        <option value="violin">Violin</option>
+        <option value="vocal">Vocal</option>
       </select>
       <select id="key">
-        <option id="">Key</option>
+        <option value="*">Key</option>
         <option value="a">A</option>
         <option value="am">Am</option>
         <option value="a#">A#</option>
@@ -89,7 +142,7 @@
       </select>
       Tempo (BPM):
       <input type="number" id="tempo" placeholder="BPM (eg. 120)" />
-      <button onclick="send_file()">Upload Sample</button>
+      <button onclick="send_file()" id="submit">Upload Sample</button>
     </div>
   </body>
 </html>

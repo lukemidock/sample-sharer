@@ -15,7 +15,25 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"
+    />
     <script type="text/javascript">
+      $(document).ready(function(){
+        console.log("hello")
+        $.ajax({
+              type: "GET",
+              url: "http://localhost:8080/samples",
+              success: function(msg){
+                var data = msg.data
+                $("#tableData").html = data
+              }});
+        });
+
+
       function redirectToUpload() {
         $(location).attr("href", "http://localhost:8080/upload");
       }
@@ -30,11 +48,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -48,7 +62,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">One of three columns</div>
-        <div class="col-sm">One of three columns</div>
+        <div class="col-sm" id="tableData"></div>
         <div class="col-sm">
           <button class="btn btn-secondary" onclick="redirectToUpload()">
             Upload Your Own Sample
@@ -60,42 +74,94 @@
           <div class="form-group">
             <label for="category">Category</label>
             <select id="category" class="form-control">
-              <option>Accordion</option>
-              <option>Arpeggio</option>
-              <option>Bagpipe</option>
+              <option value="*">Category</option>
+              <option value="accordion">Accordion</option>
+              <option value="arpeggio">Arpeggio</option>
+              <option value="bagpipe">Bagpipe</option>
+              <option value="banjo">Banjo</option>
+              <option value="bass">Bass</option>
+              <option value="bass guitar">Bass Guitar</option>
+              <option value="beatbox">Beatbox</option>
+              <option value="bells">Bells</option>
+              <option value="brass">Brass</option>
+              <option value="choir">Choir</option>
+              <option value="clarinet">Clarinet</option>
+              <option value="drum">Drum</option>
+              <option value="flute">Flute</option>
+              <option value="fx">FX</option>
+              <option value="guitar accoustic">Guitar Accoustic</option>
+              <option value="guitar electric">Guitar Electric</option>
+              <option value="harmonica">Harmonica</option>
+              <option value="harp">Harp</option>
+              <option value="orchestral">Orchestral</option>
+              <option value="organ">Organ</option>
+              <option value="pad">Pad</option>
+              <option value="percussion">Percussion</option>
+              <option value="piano">Piano</option>
+              <option value="strings">Strings</option>
+              <option value="synth">Synth</option>
+              <option value="violin">Violin</option>
+              <option value="vocal">Vocal</option>
             </select>
             <label for="genre">Genre</label>
             <select id="genre" class="form-control">
-              <option>Acoustic</option>
-              <option>Ambient</option>
-              <option>Big Room</option>
+              <option value="*">Genre</option>
+              <option value="acoustic">Acoustic</option>
+              <option value="ambient">Ambient</option>
+              <option value="big room">Big Room</option>
+              <option value="blues">Blues</option>
+              <option value="boom bap">Boom Bap</option>
+              <option value="chill out">Chill Out</option>
+              <option value="cinematic">Cinematic</option>
+              <option value="country">Country</option>
+              <option value="dance">Dance</option>
+              <option value="deep house">Deep House</option>
+              <option value="disco">Disco</option>
+              <option value="drum and bass">Drum and Bass</option>
+              <option value="Dubstep">Dubstep</option>
+              <option value="edm">EDM</option>
+              <option value="electro">Electro</option>
+              <option value="electric">Electric</option>
+              <option value="grime">Grime</option>
+              <option value="heavy metal">Heavy Metal</option>
+              <option value="hip hop">Hip Hop</option>
+              <option value="house">House</option>
+              <option value="jazz">Jazz</option>
+              <option value="lofi">Lo-Fi</option>
+              <option value="orchestral">Orchestral</option>
+              <option value="pop">Pop</option>
+              <option value="rap">Rap</option>
+              <option value="reggae">Reggae</option>
+              <option value="rnb">RnB</option>
+              <option value="rock">Rock</option>
             </select>
             <label for="key">Key</label>
             <select id="key" class="form-control">
-              <option>A</option>
-              <option>Am</option>
-              <option>A#</option>
-              <option>A#m</option>
-              <option>B</option>
-              <option>Bm</option>
-              <option>C</option>
-              <option>Cm</option>
-              <option>C#</option>
-              <option>C#m</option>
-              <option>D</option>
-              <option>Dm</option>
-              <option>D#</option>
-              <option>D#m</option>
-              <option>E</option>
-              <option>Em</option>
-              <option>F</option>
-              <option>Fm</option>
-              <option>F#</option>
-              <option>F#m</option>
-              <option>G</option>
-              <option>Gm</option>
-              <option>G#</option>
-              <option>G#m</option>
+              <option value="*">Key</option>
+              <option value="a">A</option>
+              <option value="am">Am</option>
+              <option value="a#">A#</option>
+              <option value="a#m">A#m</option>
+              <option value="b">B</option>
+              <option value="bm">Bm</option>
+              <option value="c">C</option>
+              <option value="cm">Cm</option>
+              <option value="c#">C#</option>
+              <option value="c#m">C#m</option>
+              <option value="d">D</option>
+              <option value="dm">Dm</option>
+              <option value="d#">D#</option>
+              <option value="d#m">D#m</option>
+              <option value="e">E</option>
+              <option value="em">Em</option>
+              <option value="f">F</option>
+              <option value="fm">Fm</option>
+              <option value="f#">F#</option>
+              <option value="f#m">F#m</option>
+              <option value="g">G</option>
+              <option value="gm">Gm</option>
+              <option value="g#">G#</option>
+              <option value="g#m">G#m</option>
             </select>
           </div>
           <div class="form-group">
