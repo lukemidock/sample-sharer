@@ -4,7 +4,8 @@ var mysql = require("mysql");
 var request = require('request');
 var fs = require("fs");
 var bodyparser = require('body-parser');
-var uuidv4 = require('uuid/v4')
+var uuidv4 = require('uuid/v4');
+var formidable = require('formidable');
 
 
 //initialize express app
@@ -54,29 +55,38 @@ pool = mysql.createPool({
 
 
 
-app.get("/samples", function(req, res) {
-  pool.query("select * from samples", function(err, rows, fields) {
-    if (err) throw err;
-    console.log(rows);
-  });
-    
-});
 
 
-app.post("/uploadsample", async function(req, res) {
+
+app.post("/uploadsample", function(req, res) {
     
 	var query = req.body;
-	query.id = uuidv4();
-    query.data = readpFile("mp3samples\\"+ query.data);
-    console.log(query);
-    
-    
-    
-    //pool.query("INSERT INTO `samples`(data) VALUES (BINARY(:data), (:name),(:genre),(:category),(:key), (:tempo))", { data, name, genre, category, key, tempo}, function(err, res) {
-    pool.query('INSERT INTO samples SET ?', query, function (err, res) {
-  if (err) throw err;
-        console.log("BLOB data inserted!");
+	
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = query.path;
+      var newpath = 'C:\\Users\\rbegs\\OneDrive\\@Classes\\CS 275\\Final\\sample-sharer\\samples\\' + files.query.path.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        res.write('File uploaded and moved!');
+        res.end();
+      });
     });
+    
+    
+    
+    
+    
+    
+    
+    
+    //query.data = readpFile("mp3samples\\"+ query.data);
+    /*console.log(query);
+    fs.writeFileSync("output.mp3", query.path);
+    pool.query('INSERT INTO samples SET ?', query, function (err, res) {
+    if (err) throw err;
+        console.log("BLOB data inserted!");
+    });*/
 });
 
 app.get("/upload_sample", function(req, res) {});

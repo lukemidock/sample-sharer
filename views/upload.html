@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
     <script type="text/javascript">
       function send_file() {
-        var sampleFile = document.getElementById("sampleFile").files[0].name
+        var sampleFile = document.getElementById("sampleFile");
         var sampleName = $("#sampleName").val();
         var sampleGenre = $("#genre").val();
         var sampleCategory = $("#category").val();
@@ -18,8 +18,7 @@
         var sampleTempo = $("#tempo").val();
           
         var file_json = {
-          "id": 0,
-          "data": sampleFile,
+          "path": sampleFile,
           "name": sampleName,
           "genre": sampleGenre,
           "category": sampleCategory,
