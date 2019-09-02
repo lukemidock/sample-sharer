@@ -84,12 +84,12 @@ app.post("/fileupload", function(req, res) {
       });
     console.log(fields)
     fields.path = newpath;
-    
-    
+
+
     pool.query("INSERT into samples SET ?", fields, function(err, rows, fields) {
     if (err) throw err;
     console.log("Inserted")
-    
+
  });
     });
 
@@ -107,12 +107,12 @@ app.get("/samples", function(req, res) {
         parts = rows[i].path.split('\\');
         parts = parts.pop();
         //console.log(parts);
-      bigString += "<div><audio controls type='audio/wav' src='../samples/"+ parts +"'></audio></div><div><table><thead><tr><th>Name</th><th>Category</th><th>Genre</th><th>Key</th><th>Tempo</th></tr></thead><tbody><tr><td>" + rows[i].name+"</td><td>"+rows[i].category+"</td><td>"+rows[i].genre+"</td><td>"+rows[i].musickey+"</td><td>"+rows[i].tempo+"</td></tr></tbody></table></div><br />";
+      bigString += "<div><audio controls type='audio/wav' src='../samples/"+ parts +"'></audio></div><div><table class='table'><thead><tr><th scope='col'>Name</th><th scope='col'>Category</th><th scope='col'>Genre</th><th scope='col'>Key</th><th scope='col'>Tempo</th></tr></thead><tbody><tr scope='row'><td>" + rows[i].name+"</td><td>"+rows[i].category+"</td><td>"+rows[i].genre+"</td><td>"+rows[i].musickey+"</td><td>"+rows[i].tempo+"</td></tr></tbody></table></div><br />";
     }
       console.log()
       res.send({data: bigString});
   });
-  
+
 });
 
 
