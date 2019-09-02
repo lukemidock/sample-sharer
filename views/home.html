@@ -48,7 +48,9 @@
           url: "http://localhost:8080/search",
           data: data,
           success: function(msg) {
+            var data = msg.data
             console.log(msg)
+            $("#tableData").html(data)
           }
         })
       }
