@@ -11,6 +11,7 @@ var formidable = require('formidable');
 var app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json())
+
 var port = 8080;
 app.use(express.static("."));
 
@@ -51,7 +52,7 @@ pool = mysql.createPool({
 
 app.post("/uploadsample", function(req, res) {
     
-	var query = req.body;
+	var query = req.body.uploaddata;
 	
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
@@ -69,7 +70,28 @@ app.post("/uploadsample", function(req, res) {
 
 
 
-app.get("/upload_sample", function(req, res) {});
+app.post("/fileupload", function(req, res) {
+    var form = new formidable.IncomingForm();
+    console.log(req.body);
+    //console.log(form);
+    form.parse(req, function (err, fields, files) {
+        console.log(files);
+        console.log(err);
+        console.log(fields);
+      var oldpath = files.filetoupload.path;
+      var newpath = 'C:\\Users\\rbegs\\OneDrive\\@Classes\\CS 275\\Final\\sample-sharer\\samples\\' + files.filetoupload.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        res.write('File uploaded and moved!');
+        res.end();
+      });
+ });
+    
+    
+});
+
+
+
 
 
 app.get("/", function(req, res) {

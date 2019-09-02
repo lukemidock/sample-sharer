@@ -3,17 +3,9 @@
     <title>Upload Samples</title>
     <button onclick="redirectHome()">Back To Home</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    <script type="text/javascript">
-      $("#submit").on("click", function(e){
-         e.stopPropagation();
-      })
-
-      function send_file() {
+    
+    <script>
+      function senddata(){
         var sampleFile = document.getElementById("sampleFile");
         var sampleName = $("#sampleName").val();
         var sampleGenre = $("#genre").val();
@@ -42,6 +34,24 @@
           }
         });
       }
+
+    function testdata(){
+        var url = "http://localhost:8080/uploadsample";
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: {
+              uploadFile: document.getElementById("newform")
+          },
+          async: true,
+          success: function(msg) {
+            alert("Successfully Uploaded Sample");
+            redirectHome();
+          }
+        });
+        
+        
+    }
 
       function redirectHome() {
         $(location).attr("href", "http://localhost:8080");
@@ -142,7 +152,12 @@
       </select>
       Tempo (BPM):
       <input type="number" id="tempo" placeholder="BPM (eg. 120)" />
-      <button onclick="send_file()" id="submit">Upload Sample</button>
+      <button id="submitsample">Upload Sample</button>
     </div>
+      
+    <form action="/fileupload" method="post" enctype="multipart/form-data">
+        <input type="file" id="file" name="filetoupload" /><br />
+        <input type="submit" value="Submit" />
+    </form>
   </body>
 </html>
