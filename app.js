@@ -83,7 +83,7 @@ app.post("/fileupload", function(req, res) {
         res.end();
       });
     console.log(r)
-    pool.query("INSERT into samples VALUES ("+fields + ")", function(err, rows, fields) {
+    pool.query("INSERT into samples VALUES ("+ fields + ")", function(err, rows, fields) {
     if (err) throw err;
     console.log("Inserted")
     
