@@ -54,11 +54,17 @@ pool = mysql.createPool({
 
 
 app.get("/samples", function(req, res) {
-  /*pool.query("select * from samples", function(err, rows, fields) {
+  pool.query("select * from samples", function(err, rows, fields) {
     if (err) throw err;
-    console.log(rows);
-  });*/
-  res.send("hello")
+    var bigString = ``
+    for (var i = 0; i < rows.length; i++) {
+      bigString += `<div><audio controls src=${rows[i].path}>Your browser does not support the
+            <code>audio</code> element.</audio></div><div><table><thead><tr><th>Name</th><th>Category</th><th>Genre</th><th>Key</th>
+            <th>Tempo</th></tr></thead><tbody><tr><td>${rows[i].name}</td><td>${rows[i].category}</td>
+            <td>${rows[i].genre}</td><td>${rows[i].musickey}</td><td>${rows[i].tempo}</td></tr></tbody></table></div><br />`
+    }
+  });
+  res.send({data: bigString})
 });
 
 
