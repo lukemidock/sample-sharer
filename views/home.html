@@ -29,7 +29,9 @@
               url: "http://localhost:8080/samples",
               success: function(msg){
                 var data = msg.data
-                $("#tableData").html = data
+                console.log(msg)
+                $("#tableData").html(data)
+                  
               }});
         });
 
@@ -61,7 +63,7 @@
     ></script>
     <div class="container">
       <div class="row">
-        <div class="col-sm">One of three columns</div>
+        
         <div class="col-sm" id="tableData"></div>
         <div class="col-sm">
           <button class="btn btn-secondary" onclick="redirectToUpload()">
