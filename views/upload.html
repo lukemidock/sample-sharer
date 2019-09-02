@@ -9,6 +9,10 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
     <script type="text/javascript">
+      $("#submit").on("click", function(e){
+         e.stopPropagation();
+      })
+
       function send_file() {
         var sampleFile = document.getElementById("sampleFile").files[0].name
         var sampleName = $("#sampleName").val();
@@ -139,7 +143,7 @@
       </select>
       Tempo (BPM):
       <input type="number" id="tempo" placeholder="BPM (eg. 120)" />
-      <button onclick="send_file()">Upload Sample</button>
+      <button onclick="send_file()" id="submit">Upload Sample</button>
     </div>
   </body>
 </html>
