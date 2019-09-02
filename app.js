@@ -91,6 +91,7 @@ app.post("/fileupload", function(req, res) {
     console.log("Inserted")
 
  });
+        
     });
 
 
@@ -139,9 +140,14 @@ app.get("/search", function(req, res) {
       query += "musickey = '" + musickey+"' AND ";
   }
     if (tempo == ""){
-      query += "tempo != '0'";
+      query += "tempo != '0' AND ";
   }else{
-      query += "tempo = '" + tempo+"'";
+      query += "tempo = '" + tempo+"' AND ";
+  }
+    if (name == ""){
+      query += "name != '*'";
+  }else{
+      query += "name = '" + name+"'";
   }
   console.log(query);
   pool.query(query, function(err, rows, fields) {
