@@ -72,12 +72,9 @@ app.post("/uploadsample", function(req, res) {
 
 app.post("/fileupload", function(req, res) {
     var form = new formidable.IncomingForm();
-    console.log(req.body);
+    //console.log(req.body);
     //console.log(form);
     form.parse(req, function (err, fields, files) {
-        console.log(files);
-        console.log(err);
-        console.log(fields);
       var oldpath = files.filetoupload.path;
       var newpath = 'C:\\Users\\rbegs\\OneDrive\\@Classes\\CS 275\\Final\\sample-sharer\\samples\\' + files.filetoupload.name;
       fs.rename(oldpath, newpath, function (err) {
@@ -85,6 +82,11 @@ app.post("/fileupload", function(req, res) {
         res.write('File uploaded and moved!');
         res.end();
       });
+    console.log(r)
+    pool.query("INSERT into samples VALUES ("+fields + ")", function(err, rows, fields) {
+    if (err) throw err;
+    console.log("Inserted")
+    
  });
     
     
