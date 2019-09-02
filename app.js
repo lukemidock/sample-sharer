@@ -120,10 +120,31 @@ app.get("/search", function(req, res) {
   var name = req.query.name
   var category = req.query.category
   var genre = req.query.genre
-  var musickey = req.query.key
+  var musickey = req.query.musickey
   var tempo = req.query.tempo
-  
-  pool.query("select * from samples ", function(err, rows, fields) {
+  var query = "select * from samples WHERE "
+  if (category == "*"){
+      query += "category != '*' AND ";
+  }else{
+      query += "category = '" + category+"' AND ";
+  }
+  if (genre == "*"){
+      query += "genre != '*' AND ";
+  }else{
+      query += "genre = '" + genre+"' AND ";
+  }
+    if (musickey == "*"){
+      query += "musickey != '*' AND ";
+  }else{
+      query += "musickey = '" + musickey+"' AND ";
+  }
+    if (tempo == ""){
+      query += "tempo != '0'";
+  }else{
+      query += "tempo = '" + tempo+"'";
+  }
+  console.log(query);
+  pool.query(query, function(err, rows, fields) {
       //console.log("rows",rows)
     if (err) throw err;
       //console.log("rowslength",rows.length)
@@ -134,7 +155,7 @@ app.get("/search", function(req, res) {
         //console.log(parts);
       bigString += "<div><audio controls type='audio/wav' src='../samples/"+ parts +"'></audio></div><div><table><thead><tr><th>Name</th><th>Category</th><th>Genre</th><th>Key</th><th>Tempo</th></tr></thead><tbody><tr><td>" + rows[i].name+"</td><td>"+rows[i].category+"</td><td>"+rows[i].genre+"</td><td>"+rows[i].musickey+"</td><td>"+rows[i].tempo+"</td></tr></tbody></table></div><br />";
     }
-      console.log()
+      console.log(bigString)
       res.send({data: bigString});
   });
   
