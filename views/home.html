@@ -22,7 +22,7 @@
       href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"
     />
     <script type="text/javascript">
-      $(document).ready(function(){
+      function loadAll() {
         console.log("hello")
         $.ajax({
               type: "GET",
@@ -33,7 +33,7 @@
                 $("#tableData").html(data)
 
               }});
-        });
+      }
 
       function search() {
         var data = {
@@ -83,7 +83,9 @@
     ></script>
     <div class="container">
       <div class="row">
-
+        <div class="col-sm">
+          <button onclick="loadAll()" class="btn btn-secondary">Load All Samples</button>
+        </div>
         <div class="col-sm" id="tableData"></div>
         <div class="col-sm">
           <button class="btn btn-secondary" onclick="redirectToUpload()">
