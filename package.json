@@ -4,8 +4,8 @@
   "description": "Luke Midock's Calculation Site",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "formidable": "^1.2.1",
     "mysql": "^2.17.1",
     "path": "^0.12.7",
